@@ -13,8 +13,8 @@ let explore numberOfFilms =
     |> Array.map (fun row -> row.Title, row.``Worldwide gross``)
 
 let formatFilms (films:(string * string) []) =
-    let (maxLengthOfTitle, maxLengthOfGross) = 
-        films 
+    let (maxLengthOfTitle, maxLengthOfGross) =
+        films
         |> Array.fold (fun (acc1, acc2) (title, gross) -> (max title.Length acc1, max gross.Length acc2)) (0, 0)
     printfn "%s" (new string('-', maxLengthOfTitle + maxLengthOfGross + 7))
     printfn "| %-*s | %-*s |" maxLengthOfTitle "Title" maxLengthOfGross "Gross"
@@ -31,10 +31,10 @@ type Arguments =
 
 [<EntryPoint>]
 let main argv =
-    try 
-        let parser = ArgumentParser.Create<Arguments>(programName = "films")
+    try
+        let parser = ArgumentParser.Create<Arguments>(programName = "hgf")
         let results = parser.Parse argv
         results.GetResult Number |> explore |> formatFilms
-    with    
-        | :? ArguParseException as e ->  printfn "%s" e.Message
+    with
+        | :? ArguParseException as e -> printfn "%s" e.Message
     0
